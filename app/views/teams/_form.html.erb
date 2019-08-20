@@ -1,0 +1,25 @@
+<% if @team.errors.any? %>
+ <h2>The following errors prevented the team from saving:</h2>
+ <ul>
+ <% @team.errors.full_messages.each do |msg|%>
+ <li><%= msg %></li>
+ <% end %>
+ </ul>
+<% end %>
+<%= form_for @teams do |f| %>
+ <p>
+  <%= f.label :title %><br>
+  <%= f.text_field :title %>
+ </p>
+ <p>
+  <%= f.label :member %><br>
+  <%= f.text_area :member %>
+ </p>
+  <p>
+  <%= f.label :role %><br>
+  <%= f.text_area :role %>
+ </p>
+ <p>
+  <%= f.submit %>
+ </p>
+<% end %>

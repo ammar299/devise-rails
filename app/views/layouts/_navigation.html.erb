@@ -12,6 +12,7 @@
         <%else%>
         <li><%= link_to "LogOut", destroy_user_session_path , :method => :delete %></li>
         <li><%= link_to "Update", user_registration_path , :method => :put %></li>
+        <li><%= link_to "Create Team", new_user_team_path(current_user) %><li>
         <%end%>
     </ul>
   </div>
