@@ -1,24 +1,30 @@
 class TeamsController < ApplicationController
+
+	before_action :authenticate_user!
+
 	def index
-    @teams = Team.all
+		# join table records ids
+		ids = current_user.teams.pluck(:id)
+    @teams = Team.where(id: ids)
   end
 
 	def new
-		@team = current_user.teams.new
+		@team = Team.new
 	end
 
 	def create
 		@team = current_user.teams.new(team_params)
 		if @team.save
+			UserTeam.create(user_id: current_user.id, team_id: @team.id)
 			flash[:notice] = "Team was successfully created"
-			redirect_to user_team_path(:user_id , :id)
+			redirect_to user_team_path(current_user, @team)
 		else
 			reder 'new'
 		end
 	end
 
 	def show
-    @team = Team.find(params[:id])
+    @team = Team.find_by(id: params[:id])
   end
 
   def edit
@@ -26,10 +32,10 @@ class TeamsController < ApplicationController
 	end
 
 	def update
-  	@team = team.find(params[:id])
+  	@team = Team.find_by(id: params[:id])
   	if @team.update(team_params)
    		flash[:notice] = "team was updated"
-   		redirect_to team_path(@team)
+   		redirect_to user_team_path(current_user, @team)
   	else
    		flash[:notice] = "team was not updated"
    		render 'edit'
@@ -40,7 +46,7 @@ class TeamsController < ApplicationController
   	@team = Team.find(params[:id])
   	@team.destroy
   	flash[:notice] = "team was deleted"
-  	redirect_to users_teams_path(user_id: current_user.id)
+  	redirect_to user_teams_path(user_id: current_user.id)
  	end
 
 	private

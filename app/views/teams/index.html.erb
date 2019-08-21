@@ -1,12 +1,14 @@
 <h1>Listing all Teams</h1>
-<table>
+<table style="width:80%">
  <tr>
+ 	<th>ID</th>
   <th>Title</th>
   <th>Member</th>
   <th>Role</th>
  </tr>
  <% @teams.each do |team| %>
  <tr>
+ 	<td><%=team.id %></td>
   <td><%= team.title %></td>
   <td><%= team.member %></td>
   <td><%= team.role %></td>
@@ -16,4 +18,4 @@
  </tr>
  <% end %>
 </table>
-<%= link_to 'Back', user_teams_path(user_id:current_user.id) %>
+<%#= link_to 'Back', user_teams_path(user_id:current_user.id) %>

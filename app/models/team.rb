@@ -1,4 +1,4 @@
 class Team < ApplicationRecord
-	has_and_belongs_to_many :users :users
-
+	has_many :user_teams
+	has_many :users, through: :user_teams
 end
