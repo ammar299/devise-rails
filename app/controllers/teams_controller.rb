@@ -1,57 +1,67 @@
 class TeamsController < ApplicationController
 
 	before_action :authenticate_user!
-
+	include TeamHelper
 	def index
-		# join table records ids
-		ids = current_user.teams.pluck(:id)
-    @teams = Team.where(id: ids)
-  end
+		ids = Membership.where(user_id: current_user.id).pluck(:team_id)
+		@teams = Team.where.not(id: ids)
+	end
+
+	def joined
+		@memberships = current_user.memberships
+	end
+
+	def join_team
+		
+		membership = Membership.create(team_id: params[:team_id], user_id: current_user.id, role: 'member')
+		# ternary operator ruby
+		membership.persisted? ? (redirect_to joined_user_teams_path(current_user)) : (redirect_to user_teams_path(current_user))
+	end
 
 	def new
 		@team = Team.new
 	end
 
 	def create
-		@team = current_user.teams.new(team_params)
+		@team = Team.new(team_params)
 		if @team.save
-			UserTeam.create(user_id: current_user.id, team_id: @team.id)
-			flash[:notice] = "Team was successfully created"
-			redirect_to user_team_path(current_user, @team)
+			Membership.create(user_id: current_user.id, team_id: @team.id, role: 'admin')
+			flash[:notice] = "#{current_user.name || "You" } created #{@team.title} as Admin Role"
+			redirect_to joined_user_teams_path(current_user)
 		else
-			reder 'new'
+			render 'new'
 		end
 	end
 
 	def show
-    @team = Team.find_by(id: params[:id])
-  end
+		@team = Team.find_by(id: params[:id])
+	end
 
-  def edit
-  	@team = Team.find(params[:id])
+	def edit
+		@team = Team.find(params[:id])
 	end
 
 	def update
-  	@team = Team.find_by(id: params[:id])
-  	if @team.update(team_params)
-   		flash[:notice] = "team was updated"
-   		redirect_to user_team_path(current_user, @team)
-  	else
-   		flash[:notice] = "team was not updated"
-   		render 'edit'
-  	end
+		@team = Team.find_by(id: params[:id])
+		if @team.update(team_params)
+			flash[:notice] = "team was updated"
+			redirect_to user_team_path(current_user, @team)
+		else
+			flash[:notice] = "team was not updated"
+			render 'edit'
+		end
 	end
 
 	def destroy
-  	@team = Team.find(params[:id])
-  	@team.destroy
-  	flash[:notice] = "team was deleted"
-  	redirect_to user_teams_path(user_id: current_user.id)
- 	end
+		@team = Team.find_by(id: params[:id])
+		@team.destroy
+		flash[:notice] = "team was deleted"
+		redirect_to joined_user_teams_path(current_user)
+	end
 
 	private
 
 	def team_params
-		params.require(:team).permit(:title, :member, :role)
+		params.require(:team).permit(:title)
 	end
 end

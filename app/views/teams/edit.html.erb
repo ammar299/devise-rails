@@ -10,7 +10,7 @@
  </p>
   <p>
   <%= f.label :role %><br>
-  <%= f.text_area :role %>
+	<%= f.select :role, ['Admin', 'Project Manager' , 'Team Leader' , 'Employee']%>
  </p>
  <p>
   <%= f.submit %>

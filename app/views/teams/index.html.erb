@@ -1,21 +1,24 @@
-<h1>Listing all Teams</h1>
-<table style="width:80%">
+<h1>you have not joined the following teams</h1>
+<table style="width:80%; margin-left: 20px;">
  <tr>
- 	<th>ID</th>
   <th>Title</th>
-  <th>Member</th>
-  <th>Role</th>
- </tr>
- <% @teams.each do |team| %>
- <tr>
- 	<td><%=team.id %></td>
-  <td><%= team.title %></td>
-  <td><%= team.member %></td>
-  <td><%= team.role %></td>
-  <td><%= link_to 'Show', user_team_path(current_user,team.id) %></td>
-  <td><%= link_to 'Edit', edit_user_team_path(current_user,team.id) %></td>
-  <td><%= link_to 'Delete', user_team_path(current_user,team.id), method: :delete, data: {confirm: "Are you sure?"} %></td>
- </tr>
- <% end %>
+  <th>Action</th>
+</tr>
+<% @teams.each do |team| %>
+  <tr>
+    <td><%= team.title %></td>
+    <% if team.memberships.size == 5 %>
+      <td><button disabled>Team full</button></td>
+    <% else %>
+      <td>
+        <% if is_team_admin?(team, current_user) %>
+          <button>You are team admin</button>
+        <% else %>
+          <%= form_for Membership.new, :url => {:action => "join_team", params: {team_id: team.id}} do |f| %>
+            <%= f.button 'join team' %>
+          <% end %>
+        <% end %>
+    <% end %>
+  </tr>
+<% end %>
 </table>
-<%#= link_to 'Back', user_teams_path(user_id:current_user.id) %>
