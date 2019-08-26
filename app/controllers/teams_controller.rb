@@ -12,10 +12,17 @@ class TeamsController < ApplicationController
 	end
 
 	def join_team
-		
+		render 'join_requests'
 		membership = Membership.create(team_id: params[:team_id], user_id: current_user.id, role: 'member')
 		# ternary operator ruby
 		membership.persisted? ? (redirect_to joined_user_teams_path(current_user)) : (redirect_to user_teams_path(current_user))
+	end
+
+	def join_requests
+			# membership = Membership.update(team_id: params[:team_id], user_id: :id, role: 'member', :is_approved)
+			# :boolean, default: false ? (redirect_to joined_user_teams_path(current_user)) : (redirect_to user_teams_path(current_user))
+			membership = Membership.update(team_id: params[:team_id], user_id: :id, role: 'member')
+			current_user ? @memberships = Membership.all : @memberships = Membership.where(:approved => false)
 	end
 
 	def new
@@ -38,14 +45,14 @@ class TeamsController < ApplicationController
 	end
 
 	def edit
-		@team = Team.find(params[:id])
+		@team = Team.find_by(id: params[:id])
 	end
 
 	def update
 		@team = Team.find_by(id: params[:id])
 		if @team.update(team_params)
 			flash[:notice] = "team was updated"
-			redirect_to user_team_path(current_user, @team)
+			redirect_to joined_user_teams_path(current_user)
 		else
 			flash[:notice] = "team was not updated"
 			render 'edit'

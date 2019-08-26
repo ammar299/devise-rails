@@ -11,8 +11,8 @@
   <td><%= membership.role %></td>
   <td>
   	<% if is_team_admin?(membership.team, current_user) == true %>
-  	<%= link_to 'Edit', edit_user_team_path(current_user, membership) %>
-  	| <%= link_to 'Delete', user_team_path(current_user, membership), method: :delete, data: {confirm: "Are you sure?"} %>
+  	<%= link_to 'Edit', edit_user_team_path(current_user, membership.team) %>
+  	| <%= link_to 'Delete', user_team_path(current_user, membership.team), method: :delete, data: {confirm: "Are you sure?"} %>
   	<% else %>
 	  	<p>your are not authorized to edit | delete the team</p>
   	<% end %>
