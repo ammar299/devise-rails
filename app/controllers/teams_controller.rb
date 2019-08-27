@@ -12,17 +12,26 @@ class TeamsController < ApplicationController
 	end
 
 	def join_team
-		render 'join_requests'
 		membership = Membership.create(team_id: params[:team_id], user_id: current_user.id, role: 'member')
 		# ternary operator ruby
 		membership.persisted? ? (redirect_to joined_user_teams_path(current_user)) : (redirect_to user_teams_path(current_user))
 	end
 
 	def join_requests
-			# membership = Membership.update(team_id: params[:team_id], user_id: :id, role: 'member', :is_approved)
-			# :boolean, default: false ? (redirect_to joined_user_teams_path(current_user)) : (redirect_to user_teams_path(current_user))
-			membership = Membership.update(team_id: params[:team_id], user_id: :id, role: 'member')
-			current_user ? @memberships = Membership.all : @memberships = Membership.where(:approved => false)
+		admin_team_id = current_user.memberships.where(role: "admin").pluck(:team_id)
+		@teams = Team.where(id: admin_team_id)
+	end
+
+	def approve_join_request
+		membership = Membership.find_by(id: params[:membership_id])
+		membership.update(is_approved: true)
+		redirect_to joined_user_teams_path(current_user)
+	end
+
+	def decline_join_request
+		membership = Membership.find_by(id: params[:membership_id])
+		membership.destroy
+		redirect_to join_requests_teams_path
 	end
 
 	def new
@@ -32,7 +41,7 @@ class TeamsController < ApplicationController
 	def create
 		@team = Team.new(team_params)
 		if @team.save
-			Membership.create(user_id: current_user.id, team_id: @team.id, role: 'admin')
+			Membership.create(user_id: current_user.id, team_id: @team.id, role: 'admin', is_approved: true)
 			flash[:notice] = "#{current_user.name || "You" } created #{@team.title} as Admin Role"
 			redirect_to joined_user_teams_path(current_user)
 		else

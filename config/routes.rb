@@ -14,9 +14,10 @@ Rails.application.routes.draw do
 	resources :teams do
 		collection do
 			post 'join_team'
-		end
-		member do
+			post 'approve_join_request'
 			get 'join_requests'
+			delete 'decline_join_request'
 		end
+
 	end
 end

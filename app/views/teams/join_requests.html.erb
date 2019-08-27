@@ -1,25 +1,31 @@
 <h1>you have joined request </h1>
 <table style="width:80%; margin-left: 20px;">
- <tr>
-  <th>Team</th>
-  <th>Role</th>
-  <th>Action</th>
- </tr>
- <% @memberships.each do |membership| %>
- <tr>
-  <td><%= membership.team.title%></td>
-  <td><p>Member </p></td>
-  <td>
-    <% if  %>
-      <%= link_to 'Approve',  joined_user_teams_path(current_user) %>
-    <% else %>
-      <%= link_to 'Not Approved', teams_path %>
-  	<%# if is_team_admin?(membership.team, current_user) == true %>
-     <%#= link_to 'Delete', user_team_path(current_user, membership), method: :delete, data: {confirm: "Are you sure?"} %>
-  	<%# else %>
-  </td>
-  	<% end %>
-  </td>
- </tr>
- <% end %>
-</table>
+	<tr>
+		<th>ID</th>
+		<th>Team</th>
+		<th>Role</th>
+		<th>Action</th>
+	</tr>
+	<% @teams.each do |team| %>
+	<% unless team.memberships.where(is_approved: false).blank? %>
+	<% team.memberships.where(is_approved: false).each do |membership| %>
+	<tr>
+		<td><%= membership.team.id %></td>
+		<td><%= team.title.blank? ? "N/A" : team.title%></td>
+		<td><%= membership.role %></td>
+		<td>
+		
+			<%= link_to "Accept Request", approve_join_request_teams_path(team, membership_id: membership.id) , :method => :post %>
+			|
+			<%= link_to "Decline Request", decline_join_request_teams_path(team, membership_id: membership.id) , :method => :delete %>
+
+		</td>
+		</tr>
+
+		<% end %>
+
+		<% else %>
+		<p>No member request to join your teaM</p>
+		<% end %>
+		<%end%>
+	</table>

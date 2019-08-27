@@ -1,23 +1,25 @@
 <h1>you have joined the following teams</h1>
 <table style="width:80%; margin-left: 20px;">
- <tr>
-  <th>Title</th>
-  <th>Role</th>
-  <th>Action</th>
- </tr>
- <% @memberships.each do |membership| %>
- <tr>
-  <td><%= membership.team.title%></td>
-  <td><%= membership.role %></td>
-  <td>
-  	<% if is_team_admin?(membership.team, current_user) == true %>
-  	<%= link_to 'Edit', edit_user_team_path(current_user, membership.team) %>
-  	| <%= link_to 'Delete', user_team_path(current_user, membership.team), method: :delete, data: {confirm: "Are you sure?"} %>
-  	<% else %>
-	  	<p>your are not authorized to edit | delete the team</p>
-  	<% end %>
-  </td>
- </tr>
- <% end %>
+  <tr>
+    <th>ID</th>
+    <th>Team</th>
+    <th>Role</th>
+    <th>Action</th>
+  </tr>
+  <% @memberships.each do |membership| %>
+    <tr>
+      <td><%= membership.team.id%></td>
+      <td><%= membership.team.title%></td>
+      <td><%= membership.role %></td>
+      <td>
+    	  <% if is_team_admin?(membership.team, current_user)%>
+      	  <%= link_to 'Edit', edit_user_team_path(current_user, membership.team) %>|
+          <%= link_to 'Delete', user_team_path(current_user, membership.team), method: :delete, data: {confirm: "Are you sure?"} %>
+      	<% else %>
+    	  	<p>your are not authorized to edit | delete the team</p>
+      	<% end %>
+      </td>
+    </tr>
+  <% end %>
 </table>
 <%#= link_to 'Back', user_teams_path(user_id:current_user.id) %>
