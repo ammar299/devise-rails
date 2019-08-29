@@ -9,6 +9,10 @@ Rails.application.routes.draw do
 			collection do
 				get 'joined'
 			end
+			resources :projects do
+				resources :tasks do
+				end
+			end
 		end
 	end
 	resources :teams do
@@ -18,6 +22,5 @@ Rails.application.routes.draw do
 			get 'join_requests'
 			delete 'decline_join_request'
 		end
-
 	end
 end

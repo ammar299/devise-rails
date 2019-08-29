@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_23_201417) do
+ActiveRecord::Schema.define(version: 2019_08_28_142457) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,26 @@ ActiveRecord::Schema.define(version: 2019_08_23_201417) do
     t.integer "team_id"
     t.string "role"
     t.boolean "is_approved", default: false
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.integer "team_id"
+    t.string "name"
+    t.integer "start_date"
+    t.integer "end_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "team_id"
+    t.integer "project_id"
+    t.string "name"
+    t.string "duration"
+    t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "teams", force: :cascade do |t|

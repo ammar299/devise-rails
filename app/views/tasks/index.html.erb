@@ -1,0 +1,15 @@
+<h1>you have the following projects</h1>
+<table style="width:80%; margin-left: 20px;">
+ <tr>
+  <th>Name</th>
+  <th>Duration<th>
+  <th>Status</th>
+</tr>
+<% @tasks.each do |task| %>
+  <tr>
+    <td><%= task.name %></td>
+    <td><%= task.duration %></td>
+    <td><%= task.status %></td>
+  </tr>
+<% end %>
+</table>

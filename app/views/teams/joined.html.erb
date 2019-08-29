@@ -14,7 +14,12 @@
       <td>
     	  <% if is_team_admin?(membership.team, current_user)%>
       	  <%= link_to 'Edit', edit_user_team_path(current_user, membership.team) %>|
-          <%= link_to 'Delete', user_team_path(current_user, membership.team), method: :delete, data: {confirm: "Are you sure?"} %>
+          <%= link_to 'Delete', user_team_path(current_user, membership.team), method: :delete, data: {confirm: "Are you sure?"} %>|
+          <% if membership.team.project.blank? %>
+            <%= link_to "Create Project", new_user_team_project_path(current_user,membership.team) %>
+          <% else %>
+            <%= link_to "Show Project", user_team_project_path(current_user,membership.team, membership.team.project) %>
+          <% end %>
       	<% else %>
     	  	<p>your are not authorized to edit | delete the team</p>
       	<% end %>

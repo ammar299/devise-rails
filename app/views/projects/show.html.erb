@@ -1,0 +1,13 @@
+<h1>your project</h1>
+<table style="width:80%; margin-left: 20px;">
+ <tr>
+  <th>Name</th>
+  <th>Start Date<th>
+  <th>End Date</th>
+  <th>Create Task</th>
+  <td><%= @project.name %></td>
+  <td><%= @project.start_date %></td>
+  <td><%= @project.end_date %></td>
+  <td><%#= link_to "Create task",new_user_team_project_task_path(current_user, @team_id, @project_id)  %></td>
+ </tr>
+</table>
