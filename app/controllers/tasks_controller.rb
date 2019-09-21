@@ -10,15 +10,15 @@ class TasksController < ApplicationController
 	end
 
 	def create 
-		byebug
 		@task = Task.new(task_params)
-		@project = Project.find_by(id: params[:project_id])
-		@task.project_id = @project_id
-		@team = Team.find_by(id: params[:team_id])
-		@task.team_id = @team_id
+		
+		# @project = Project.find_by(id: params[:project_id]) ## alreay have projrct id params[:task][:project_id]
+		# @task.project_id = @project.id
+		# @team = Team.find_by(id: params[:team_id])
+		# @task.team_id = @team.id
 		if @task.save
-			flash[:notice] = "task was created"
-			redirect_to tasks_path
+			flash[:notice] = "task is created"
+			redirect_to user_team_project_tasks_path(user_id: current_user.id, team_id: params[:team_id], project_id: params[:project_id])
 		else
 			render 'new'
 		end
@@ -54,7 +54,7 @@ class TasksController < ApplicationController
 	private
 
 	def task_params
-		params.require(:task).permit(:name, :duration, :status, :project_id)
+		params.require(:task).permit(:name, :duration, :status, :project_id, :team_id, :user_id)
 	end
 
 end

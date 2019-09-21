@@ -8,6 +8,6 @@
   <td><%= @project.name %></td>
   <td><%= @project.start_date %></td>
   <td><%= @project.end_date %></td>
-  <td><%#= link_to "Create task",new_user_team_project_task_path(current_user, @team_id, @project_id)  %></td>
+  <td><%= link_to "Create task",new_user_team_project_task_path(current_user, @team.id, @project.id)  %></td>
  </tr>
 </table>

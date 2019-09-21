@@ -14,7 +14,7 @@ class ProjectsController < ApplicationController
 		@project = Project.new(project_params)
 		@project.team_id = @team_id
 		if @project.save
-			flash[:notice] = "project was created"
+			flash[:notice] = "project is created"
 			redirect_to projects_path
 		else
 			render 'new'
@@ -23,6 +23,7 @@ class ProjectsController < ApplicationController
 
 	def show
 		@project = Project.find_by(id: params[:id])
+		@team = Team.find_by(id: params[:team_id])
 	end
 
 	def update

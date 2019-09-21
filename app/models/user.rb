@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-
+  has_many :tasks
   has_one :address
   has_many :memberships
   has_many :teams, through: :memberships
