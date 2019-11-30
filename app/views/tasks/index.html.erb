@@ -1,15 +1,17 @@
-<h1>you have the following projects</h1>
+<h1>Your Tasks</h1>
 <table style="width:80%; margin-left: 20px;">
- <tr>
-  <th>Name</th>
-  <th>Duration<th>
-  <th>Status</th>
-</tr>
+	<tr>
+	  <th>Name</th>
+	  <th>Duration</th>
+		<th>Status</th>
+    <th>Action </th>
+	</tr>
 <% @tasks.each do |task| %>
   <tr>
     <td><%= task.name %></td>
     <td><%= task.duration %></td>
     <td><%= task.status %></td>
+    <td><%= link_to "Edit", edit_user_team_project_task_path(current_user , task.project.team_id, task.project_id, task.id) %></td>
   </tr>
 <% end %>
 </table>

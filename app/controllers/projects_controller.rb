@@ -10,12 +10,12 @@ class ProjectsController < ApplicationController
 	end
 
 	def create
-		@team = Team.find_by(id: params[:team_id])
+		# @team = Team.find_by(id: params[:team_id])
 		@project = Project.new(project_params)
-		@project.team_id = @team_id
+		# @project.team_id = @team_id
 		if @project.save
 			flash[:notice] = "project is created"
-			redirect_to projects_path
+			redirect_to user_team_projects_path(user_id: current_user.id, team_id: params[:team_id])
 		else
 			render 'new'
 		end
@@ -51,7 +51,7 @@ class ProjectsController < ApplicationController
 	private
 
 	def project_params
-		params.require(:project).permit(:name, :start_date, :end_date)
+		params.require(:project).permit(:name, :start_date, :end_date, :team_id, :user_id)
 	end
 
 end

@@ -1,9 +1,9 @@
 <h1>Edit Task</h1>
-<%= form_for [@task, :team_id] do |f| %>
+<%= form_for [current_user ,@team ,@project , @task] do |f| %>
 	<p>
 	 	<%= f.label :name %><br>
 	 	<%= f.text_field :name %>
-	<p>
+	</p>
 	<p>
 	 	<%= f.label :duration %><br>
 	 	<%= f.text_field :duration %>
@@ -12,6 +12,13 @@
 	 	<%= f.label :status %><br>
 	  <%= f.text_field :status %>
 	</p>
+	<p>
+		<%= f.label :user_id %><br>
+		<%= f.collection_select :user_id, @team.users.order(:name),:id,:name,{prompt:'select User'}, include_blank: false %>
+	</p>
+	<p>
+		<%= f.hidden_field :project_id, value: @project.id%>
+		<%= f.hidden_field :team_id, value: @team.id%>
   	<%= f.submit %>
   </p>
 <% end %>
