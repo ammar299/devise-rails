@@ -1,6 +1,7 @@
-<h1>you have joined request </h1>
-<table style="width:80%; margin-left: 20px;">
-	<tr>
+<h1>You have Joined Request </h1>
+
+<table id="customers">
+  <tr>
 		<th>ID</th>
 		<th>Team</th>
 		<th>Role</th>
@@ -15,9 +16,10 @@
 		<td><%= membership.role %></td>
 		<td>
 		
-			<%= link_to "Accept Request", approve_join_request_teams_path(team, membership_id: membership.id) , :method => :post %>
-			|
-			<%= link_to "Decline Request", decline_join_request_teams_path(team, membership_id: membership.id) , :method => :delete %>
+		<button class="button button1"><%= link_to "Accept Request", approve_join_request_teams_path(team, membership_id: membership.id) , :method => :post %></button>
+			
+			<button class="button button3"><%= link_to "Decline Request", decline_join_request_teams_path(team, membership_id: membership.id) , :method => :delete %></button>
+			
 
 		</td>
 		</tr>
@@ -25,7 +27,9 @@
 		<% end %>
 
 		<% else %>
-		<p>No member request to join your team</p>
+				<p>No member request to join your team</p>
 		<% end %>
+
 		<%end%>
-	</table>
+
+</table>

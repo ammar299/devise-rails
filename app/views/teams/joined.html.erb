@@ -1,30 +1,36 @@
-<h1>you have joined the following teams</h1>
-<table style="width:80%; margin-left: 20px;">
+<h1>You have Joined the Following Teams</h1>
+
+
+
+<table id="customers">
   <tr>
     <th>ID</th>
     <th>Team</th>
     <th>Role</th>
     <th>Action</th>
   </tr>
-  <% @memberships.each do |membership| %>
+    <% @memberships.each do |membership| %>
     <tr>
       <td><%= membership.team.id%></td>
       <td><%= membership.team.title%></td>
       <td><%= membership.role %></td>
       <td>
-    	  <% if is_team_admin?(membership.team, current_user)%>
-      	  <%= link_to 'Edit', edit_user_team_path(current_user, membership.team) %>|
-          <%= link_to 'Delete', user_team_path(current_user, membership.team), method: :delete, data: {confirm: "Are you sure?"} %>|
+        <% if is_team_admin?(membership.team, current_user)%>
+        <button class="button button1"><%= link_to 'Edit', edit_user_team_path(current_user, membership.team) %></button>
+          <button class="button button3"><%= link_to 'Delete', user_team_path(current_user, membership.team), method: :delete, data: {confirm: "Are you sure?"} %></button>
           <% if membership.team.project.blank? %>
-            <%= link_to "Create Project", new_user_team_project_path(current_user,membership.team) %>
+            <button class="button button2"><%= link_to "Create Project", new_user_team_project_path(current_user,membership.team) %></button>
           <% else %>
-            <%= link_to "Show Project", user_team_project_path(current_user,membership.team, membership.team.project) %>
+          <button class="button button2"><%= link_to "Show Project", user_team_project_path(current_user,membership.team, membership.team.project) %></button> 
           <% end %>
-      	<% else %>
-    	  	<p>your are not authorized to edit | delete the team</p>
-      	<% end %>
+        <% else %>
+          <p>your are not authorized to edit | delete the team</p>
+        <% end %>
       </td>
     </tr>
   <% end %>
 </table>
-<%#= link_to 'Back', user_teams_path(user_id:current_user.id) %>
+
+
+
+

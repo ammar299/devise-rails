@@ -1,6 +1,6 @@
-<h1>Your project</h1>
-<table style="width:80%; margin-left: 20px;">
- <tr>
+<h1>Your Project</h1>
+<table id="customers">
+<tr>
   <th>Name</th>
   <th>Start Date</th>
   <th>End Date</th>
@@ -13,10 +13,14 @@
   <td><%= @project.start_date %></td>
   <td><%= @project.end_date %></td>
   <% if @team.project.tasks.blank? %>
-  	<td><%= link_to "Create Task",new_user_team_project_task_path(current_user, @team.id, @project.id)  %></td>
+    <td><button class="button button1"><%= link_to "Create Task",new_user_team_project_task_path(current_user, @team.id, @project.id)  %></button></td>
   <% else %>
-    <td><%= link_to "Create Task",new_user_team_project_task_path(current_user, @team.id, @project.id)  %></td>
-    <td><%= link_to "Show Task",user_team_project_tasks_path(current_user, @project.team_id, @project.id) %></td>
+    <td><button class="button button1"><%= link_to "Create Task",new_user_team_project_task_path(current_user, @team.id, @project.id)  %></button></td>
+    <td><button class="button button2"><%= link_to "Show Task",user_team_project_tasks_path(current_user, @project.team_id, @project.id) %></button></td>
   <% end %>
 </tr>
 </table>
+
+
+
+

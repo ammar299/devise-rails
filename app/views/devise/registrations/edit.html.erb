@@ -1,28 +1,112 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
-<div class="container">
-  <div class="row">
-     <div class="col-md-4 mx-auto">
-        <div class="myform form ">
-        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-          <%= render "devise/shared/error_messages", resource: resource %>
-          
-          <div class="form-group">
-            <%= f.label :name %> 
-            <%=f.text_field :name, class: "form-control my-input", placeholder: "Name"%>
-          </div>
+<style type="text/css">
+  body{
+    color: #fff;
+    background: #3598dc;
+    font-family: 'Roboto', sans-serif;
+  }
+    .form-control{
+    height: 41px;
+    background: #f2f2f2;
+    box-shadow: none !important;
+    border: none;
+  }
+  .form-control:focus{
+    background: #e2e2e2;
+  }
+    .form-control, .btn{        
+        border-radius: 3px;
+    }
+  .signup-form{
+    width: 390px;
+    margin: 30px auto;
+  }
+  .signup-form form{
+    color: #999;
+    border-radius: 3px;
+      margin-bottom: 15px;
+        background: #fff;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        padding: 30px;
+    }
+  .signup-form h2 {
+    color: #333;
+    font-weight: bold;
+        margin-top: 0;
+    }
+    .signup-form hr {
+        margin: 0 -30px 20px;
+    }    
+  .signup-form .form-group{
+    margin-bottom: 20px;
+  }
+  .signup-form input[type="checkbox"]{
+    margin-top: 3px;
+  }
+  .signup-form .row div:first-child{
+    padding-right: 10px;
+  }
+  .signup-form .row div:last-child{
+    padding-left: 10px;
+  }
+    .signup-form .btn{        
+        font-size: 16px;
+        font-weight: bold;
+    background: #3598dc;
+    border: none;
+    min-width: 140px;
+    }
+  .signup-form .btn:hover, .signup-form .btn:focus{
+    background: #2389cd !important;
+        outline: none;
+  }
+    .signup-form a{
+    color: #fff;
+    text-decoration: underline;
+  }
+  .signup-form a:hover{
+    text-decoration: none;
+  }
+  .signup-form form a{
+    color: #3598dc;
+    text-decoration: none;
+  } 
+  .signup-form form a:hover{
+    text-decoration: underline;
+  }
+    .signup-form .hint-text {
+    padding-bottom: 15px;
+    text-align: center;
+    }
 
-          <div class="form-group">
-            <%= f.label :email %> <br />
-            <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-          </div>
 
-          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-            <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-          <% end %>
+</style>
+</head>
+<body>
+<div class="signup-form">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>         
+    <h2>Update Account</h2>
+    <p>Please fill in this form to Update an account!</p>
+    <hr>
+    <div class="form-group">
 
-          <div class="form-group">
+          <%= f.label :name %> 
+          <%=f.text_field :name, class: "form-control", placeholder: "Name"%>
+         
+    </div>
+    <div class="form-group">
+
+          <%= f.label :email %> <br />
+          <%= f.email_field :email, autofocus: true, class: "form-control", autocomplete: "email" %>
+                 
+    </div>
+
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% end %>
+
+      <div class="form-group">
             <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-            <%= f.password_field :password, autocomplete: "new-password" %>
+            <%= f.password_field :password, class: "form-control", autocomplete: "new-password" %>
             <% if @minimum_password_length %>
               <br />
               <em><%= @minimum_password_length %> characters minimum</em>
@@ -31,14 +115,10 @@
 
           <div class="form-group">
             <%= f.label :password_confirmation %><br />
-            <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+            <%= f.password_field :password_confirmation, class: "form-control", autocomplete: "new-password" %>
           </div>
 
-          <div class="form-group">
-            <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-            <%= f.password_field :current_password, autocomplete: "current-password" %>
-          </div>
-          <div class="form-group">
+    <div class="form-group">
             <%= f.label :country%> 
               <%#= build.label :country %>
             <%=f.text_field :country, class: "form-control my-input", placeholder: "country"%>
@@ -48,19 +128,13 @@
                 <%#= build.label :city %>
             <%=f.text_field :city, class: "form-control my-input", placeholder: "city"%>
           </div>
-          <%= f.file_field :avatar %>
-         
-
-          <div class="text-center ">
-            <%= f.submit "Update" , class: " btn btn-block send-button tx-tfm" %>
-          </div>
-        <% end %>
-        </div>
-      </div>
+    <div class="form-group">
+      <%#= f.file_field :avatar %>
     </div>
-  </div>
-<h3>Cancel my account</h3>
+        
+      <div class="text-center ">
+            <%= f.submit "Update" , class: "btn btn-primary btn-lg" %>
+          </div>
+    <% end %>
 
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
+<p><%= button_to "Delete Account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>

@@ -7,16 +7,16 @@
     <th>Action Task</th>
   </tr>
   <% @projects.each do |project| %>
-	  <tr>
+    <tr>
       <td><%= project.name %></td>
       <td><%= project.start_date %></td>
       <td><%= project.end_date %></td>
-      <% if @team.project.tasks.blank? %>
-        <td><%= link_to "Create Task",new_user_team_project_task_path(current_user, @team.id, @project.id)  %></td>
-        <td><%= You have not any task yet%> </td>
+      <% if project.tasks.blank? %>
+        <td><%= link_to "Create Task",new_user_team_project_task_path(current_user, project.team.id, project.id)  %></td>
       <% else %>
-        <td><%= link_to "Create Task",new_user_team_project_task_path(current_user, @team.id, @project.id)  %></td>
-        <td><%= link_to "Show Task",user_team_project_tasks_path(current_user, @project.team_id, @project.id) %></td>
+        <td><%= link_to "Create Task",new_user_team_project_task_path(current_user, project.team.id, project.id)  %></td>
+        <td><%= link_to "Show Task",user_team_project_tasks_path(current_user, project.team_id, project.id) %></td>
+      <% end %>
     </tr>
   <% end %>
 </table>

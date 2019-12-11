@@ -1,8 +1,14 @@
-<h1>Edit Team</h1>
-<%= form_for [current_user, @team] do |f| %>
- <p>
-  <%= f.label :title %><br>
-  <%= f.text_field :title %>
-  <%= f.submit %>
- </p>
-<% end %>
+ <header class=".bg-blue-400 text-white">
+    <div class="container text-left">
+      <h1>EDIT TEAM</h1>
+      <p class="lead">Create a Team to Manage your Tasks</p>
+      <%= form_for [current_user, @team] do |f| %>
+          <h1><%= f.label :title %></h1>
+          <h2><%=f.text_field :title, placeholder: "Title"%></h2>
+
+          <div class="form-group">
+            <%=f.submit class: " btn btn-primary btn-lg"%>
+          </div>
+            <% end %>
+    </div>
+  </header>

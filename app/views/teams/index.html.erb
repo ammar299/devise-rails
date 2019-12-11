@@ -1,6 +1,13 @@
-<h1>you have not joined the following teams</h1>
+<h1>You can Join the Following Team</h1>
 <table style="width:80%; margin-left: 20px;">
- <tr>
+ 
+</table>
+
+
+
+
+<table id="customers">
+  <tr>
   <th>Title</th>
   <th>Action</th>
 </tr>
@@ -8,14 +15,14 @@
   <tr>
     <td><%= team.title %></td>
     <% if team.memberships.size == 5 %>
-      <td><button disabled>Team full</button></td>
+      <td><button class="button button2 disabled">Team full</button></td>
     <% else %>
       <td>
         <% if is_team_admin?(team, current_user) %>
-          <button>You are team admin</button>
+          <button class="button button1">You are team admin</button>
         <% else %>
           <%= form_for Membership.new, :url => {:action => "join_team", params: {team_id: team.id}} do |f| %>
-            <%= f.button 'join team' %>
+            <%= f.button 'Join Team'%>
           <% end %>
         <% end %>
     <% end %>

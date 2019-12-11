@@ -1,17 +1,20 @@
-<h1>Edit Projects</h1>
-<%= form_for [@project, :team_id] do |f| %>
-	<p>
-	 	<%= f.label :name %><br>
-	 	<%= f.text_field :name %>
-	</p>
-	<p>
-	 	<%= f.label :start_date %><br>
-	 	<%= f.text_field :start_date %>
-	</p>
-	<p>
-	 	<%= f.label :end_date %><br>
-	  <%= f.text_field :end_date %>
-	</p>
-  	<%= f.submit %>
-  </p>
-<% end %>
+
+ <header class=".bg-blue-400 text-white">
+    <div class="container text-left">
+      <h1>Edit Projects</h1>
+      <%= form_for [@project, :team_id] do |f| %>
+          <h1><%= f.label :name %></h1>
+          <h2><%=f.text_field :name%></h2>
+
+          <h1><%= f.label :start_date %></h1>
+          <h2><%=f.text_field :start_date %></h2>
+
+          <h1><%= f.label :end_date %></h1>
+          <h2><%=f.text_field :end_date%></h2>
+
+          <div class="form-group">
+            <%=f.submit class: " btn btn-primary btn-lg"%>
+          </div>
+            <% end %>
+    </div>
+  </header>

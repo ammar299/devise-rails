@@ -1,22 +1,29 @@
-	<%= form_for [current_user,@team, @project, @task] do |f| %>
-	<p>
-	 	<%= f.label :name %><br>
-	 	<%= f.text_field :name %>
-	<p>
-	<p>
-	 	<%= f.label :duration %><br>
-	 	<%= f.text_field :duration %>
-	</p>
-	<p>
-	 	<%= f.label :status %><br>
-	  <%= f.text_field :status %>
-	</p>
-	<p>
-		<%= f.label :user_id %><br>
-		<%= f.collection_select :user_id, @team.users.order(:name),:id,:name,{prompt:'select User'}, include_blank: false %>
-	</p>
-		<%= f.hidden_field :project_id, value: @project.id%>
-		<%= f.hidden_field :team_id, value: @team.id%>
-  	<%= f.submit %>
-  </p>
-<% end %>
+
+ <header class=".bg-blue-400 text-white">
+    <div class="container text-left">
+      <h1>CREATE TASK</h1>
+      <%= form_for [current_user, @team, @project, @task] do |f| %>
+          <h1><%= f.label :name %></h1>
+          <h2><%= f.text_field :name %></h2>
+
+          <h1><%= f.label :duration %></h1>
+          <h2><%= f.text_field :duration %></h2>
+
+          <h1><%= f.label :status %></h1>
+          <h2><%= f.text_field :status %></h2>
+
+          <h1><%= f.label :user_id %></h1>
+           <div class="dropdown">
+           	<h1>
+           		<%= f.collection_select :user_id, @team.users.order(:name),:id,:name,{prompt:'select User'}, include_blank: false , class: "btn btn-primary"%>
+           	</h1>
+           </div>
+
+          <%= f.hidden_field :project_id, value: @project.id%>
+					<%= f.hidden_field :team_id, value: @team.id%>
+          <div class="form-group">
+            <%=f.submit class: " btn btn-primary btn-lg"%>
+          </div>
+            <% end %>
+    </div>
+  </header>

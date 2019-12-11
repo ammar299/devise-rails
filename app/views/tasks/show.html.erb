@@ -1,5 +1,5 @@
 <h1>Your Task</h1>
-<table style="width:80%; margin-left: 20px;">
+<table id="customers">
   <tr>
     <th>Name</th>
     <th>Duration</th>
@@ -11,6 +11,10 @@
     <td><%= @task.name %></td>
     <td><%= @task.duration %></td>
     <td><%= @task.status %></td>
-    <td><%#= link_to "Edit", edit_user_team_project_task_path(current_user , task.project.team_id, task.project_id, :task_id) %></td>
+    <td><button class="button button1"><%= link_to "Edit", edit_user_team_project_task_path(current_user , task.project.team_id, task.project_id, :task_id) %></button></td>
   </tr>
 </table>
+
+
+
+
