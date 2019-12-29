@@ -14,7 +14,7 @@
 <% @teams.each do |team| %>
   <tr>
     <td><%= team.title %></td>
-    <% if team.memberships.size == 5 %>
+    <% if team.memberships.size == 4 %>
       <td><button class="button button2 disabled">Team full</button></td>
     <% else %>
       <td>

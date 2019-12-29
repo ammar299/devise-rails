@@ -13,7 +13,8 @@ class ProjectsController < ApplicationController
 		# @team = Team.find_by(id: params[:team_id])
 		@project = Project.new(project_params)
 		# @project.team_id = @team_id
-		if @project.save
+		if project.end_date > project.start_date 
+			@project.save
 			flash[:notice] = "project is created"
 			redirect_to user_team_projects_path(user_id: current_user.id, team_id: params[:team_id])
 		else

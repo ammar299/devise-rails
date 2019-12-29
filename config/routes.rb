@@ -2,7 +2,8 @@ Rails.application.routes.draw do
 	root 'home#welcome'
 	devise_for :users, controllers: {
 		sessions: 'users/sessions',
-		registrations: 'users/registrations'
+		registrations: 'users/registrations' ,
+		confirmations: 'users/confirmations' 
 	}
 	resources :users do
 		resources :teams, except: [:show] do

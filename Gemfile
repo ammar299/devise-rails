@@ -56,3 +56,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "jquery"
 gem "bootstrap"
 gem 'paperclip'
+gem 'chosen-rails'
+gem 'country_select'
